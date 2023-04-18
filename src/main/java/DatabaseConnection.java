@@ -136,4 +136,22 @@ public class DatabaseConnection {
 
     }
 
+    public static void displayTripStops(String tripNum, Connection conn) throws SQLException{
+        String query = "SELECT * FROM tripstopinfo WHERE tripnumber = '" + tripNum + "'";
+
+        try(Statement stmt = conn.createStatement()){
+            ResultSet rs = stmt.executeQuery(query);
+            System.out.println("ALL STOPS FOR TRIP NUMBER " + tripNum + ": ");
+            while(rs.next()){
+                System.out.print(rs.getString(1) + ", ");
+                System.out.print(rs.getString(2) + ", ");
+                System.out.print(rs.getString(3) + ", ");
+                System.out.print(rs.getString(4) + "\n");
+            }
+            rs.close();
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
+    }
+
 }

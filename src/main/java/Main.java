@@ -21,8 +21,9 @@ public class Main {
                             "2. DELETE A TRIP OFFERING BASED ON TRIP NUMBER, DATE, AND SCHEDULED START TIME.\n" +
                             "3. ENTER A NEW TRIP OFFERING INTO THE SYSTEM.\n" +
                             "4. CHANGE THE DRIVER OF A CURRENT TRIP OFFERING.\n" +
-                            "5. CHANGE THE BUS ID OF A CURRENT TRIP OFFERING \n" +
-                            "6. ");
+                            "5. CHANGE THE BUS ID OF A CURRENT TRIP OFFERING. \n" +
+                            "6. DISPLAY ALL STOPS FOR A GIVEN TRIP NUMBER. \n" +
+                            "7. ");
 
         int option = myScanner.nextInt();
         if(option == 1){
@@ -120,6 +121,17 @@ public class Main {
         }
 
         if(option == 6){
+            System.out.println("PLEASE ENTER TRIP #: ");
+            String tripNum = myScanner.next();
+
+            try{
+                DatabaseConnection.displayTripStops(tripNum, transitConnection);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+
+        if(option == 7){
 
         }
     }
