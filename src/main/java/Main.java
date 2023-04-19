@@ -159,5 +159,29 @@ public class Main {
                 e.printStackTrace();
             }
         }
+        if (option == 9) {
+            System.out.println("PLEASE ENTER NEW BUS ID: ");
+            String busID = myScanner.next();
+            System.out.println("PLEASE ENTER NEW BUS MODEL: ");
+            String busModel = myScanner.next();
+            System.out.println("PLEASE ENTER NEW BUS YEAR: ");
+            String busYear = myScanner.next();
+
+            try {
+                DatabaseConnection.addBus(busID, busModel, busYear, transitConnection);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        if (option == 10) {
+            System.out.println("PLEASE ENTER BUS ID YOU WANT DELETED: ");
+            String busID = myScanner.next();
+
+            try {
+                DatabaseConnection.deleteBus(busID, transitConnection);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
     }
 }

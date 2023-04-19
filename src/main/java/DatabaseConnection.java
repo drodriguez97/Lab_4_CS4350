@@ -160,6 +160,26 @@ public class DatabaseConnection {
         }
     }
 
+    public static void displayDriverSchedule(String name, String date, Connection conn) throws SQLDataException {
+        String query = "SELECT tripnumber, tripdate, scheduledstarttime, scheduledarrivaltime FROM DRIVER  WHERE drivername = '"
+                + name + "' + AND tripdate = '" + date + "' ORDER BY scheduledstartime";
+
+        try (Statement stmt = conn.createStatement()) {
+            ResultSet rs = stmt.executeQuery(query);
+            System.out.println("WEEKLY SCHEDULE FOR DRIVER " + name + ": ");
+            while (rs.next()) {
+                System.out.print(rs.getString(1) + ", ");
+                System.out.print(rs.getString(2) + ", ");
+                System.out.print(rs.getString(3) + ", ");
+                System.out.print(rs.getString(4) + "\n");
+            }
+            rs.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+    }
+
     public static void addDriver(String name, String phoneNumber, Connection conn) throws SQLException {
         String query = "INSERT INTO driver VALUES('" + name + "', '" + phoneNumber + "')";
 
@@ -180,20 +200,20 @@ public class DatabaseConnection {
 
     }
 
-    // Display the weekly schedule of a given driver and date
-    public static void displayDriverSchedule(String name, String date, Connection conn) throws SQLDataException {
-        String query = "SELECT tripnumber, tripdate, scheduledstarttime, scheduledarrivaltime FROM DRIVER  WHERE drivername = '"
-                + name + "' + AND tripdate = '" + date + "' ORDER BY scheduledstartime";
+    // Add a bus
+    public static void addBus(String busID, String busModel, String busYear, Connection conn) throws SQLException {
+        String query = "INSERT INTO bus VALUES('" + busID + "', '" + busModel + "', '" + busYear + "')";
+
+        String afterInsertion = "SELECT * FROM BUS;";
 
         try (Statement stmt = conn.createStatement()) {
-            ResultSet rs = stmt.executeQuery(query);
-            System.out.println("WEEKLY SCHEDULE FOR DRIVER " + name + ": ");
+            stmt.executeUpdate(query);
+            ResultSet rs = stmt.executeQuery(afterInsertion);
+            System.out.println("SUCCESSFULLY ADDED NEW BUS: \n");
             while (rs.next()) {
-
                 System.out.print(rs.getString(1) + ", ");
                 System.out.print(rs.getString(2) + ", ");
-                System.out.print(rs.getString(3) + ", ");
-                System.out.print(rs.getString(4) + "\n");
+                System.out.print(rs.getString(3) + "\n");
             }
             rs.close();
         } catch (SQLException e) {
@@ -201,5 +221,28 @@ public class DatabaseConnection {
         }
 
     }
+
+    // Add a driver
+    public static void deleteBus(String busID, Connection conn) throws SQLException {
+        String query = "DELETE bus WHERE busid = '" + busID + "'";
+
+        String afterInsertion = "SELECT * FROM BUS;";
+
+        try (Statement stmt = conn.createStatement()) {
+            stmt.executeUpdate(query);
+            ResultSet rs = stmt.executeQuery(afterInsertion);
+            System.out.println("AFTER INSERTION: \n");
+            while (rs.next()) {
+                System.out.print(rs.getString(1) + ", ");
+                System.out.print(rs.getString(2) + "\n");
+                System.out.print(rs.getString(3) + "\n");
+            }
+            rs.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+    }
+    // Display the weekly schedule of a given driver and date
 
 }
