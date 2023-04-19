@@ -23,7 +23,11 @@ public class Main {
                             "4. CHANGE THE DRIVER OF A CURRENT TRIP OFFERING.\n" +
                             "5. CHANGE THE BUS ID OF A CURRENT TRIP OFFERING. \n" +
                             "6. DISPLAY ALL STOPS FOR A GIVEN TRIP NUMBER. \n" +
-                            "7. ");
+                            "7. DISPLAY A DRIVER'S WEEKLY SCHEDULE. \n" +
+                            "8. ADD A DRIVER TO THE SYSTEM. \n" +
+                            "9. ADD A BUS TO THE SYSTEM. \n" +
+                            "10. DELETE A BUS FROM THE SYSTEM. \n" +
+                            "11. RECORD DATA FOR AN ACTUAL TRIP MADE.");
 
         int option = myScanner.nextInt();
         if(option == 1){
@@ -133,6 +137,19 @@ public class Main {
 
         if(option == 7){
 
+        }
+
+        if(option == 8){
+            System.out.println("PLEASE ENTER NEW DRIVER'S NAME: ");
+            String name = myScanner.next() + " " + myScanner.next();
+            System.out.println("PLEASE ENTER NEW DRIVER'S PHONE NUMBER: ");
+            String phone = myScanner.next();
+
+            try{
+                DatabaseConnection.addDriver(name, phone, transitConnection);
+            } catch (SQLException e){
+                e.printStackTrace();
+            }
         }
     }
 }

@@ -154,4 +154,24 @@ public class DatabaseConnection {
         }
     }
 
+    public static void addDriver(String name, String phoneNumber, Connection conn) throws SQLException {
+        String query = "INSERT INTO driver VALUES('" + name + "', '" + phoneNumber + "')";
+
+        String afterInsertion = "SELECT * FROM DRIVER;";
+
+        try(Statement stmt = conn.createStatement()) {
+            stmt.executeUpdate(query);
+            ResultSet rs = stmt.executeQuery(afterInsertion);
+            System.out.println("AFTER INSERTION: \n");
+            while(rs.next()){
+                System.out.print(rs.getString(1) + ", ");
+                System.out.print(rs.getString(2) + "\n");
+            }
+            rs.close();
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
+
+    }
+
 }
