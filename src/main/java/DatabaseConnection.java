@@ -184,6 +184,7 @@ public class DatabaseConnection {
 
     }
 
+    // add a driver
     public static void addDriver(String name, String phoneNumber, Connection conn) throws SQLException {
         String query = "INSERT INTO driver VALUES('" + name + "', '" + phoneNumber + "')";
 
@@ -226,7 +227,7 @@ public class DatabaseConnection {
 
     }
 
-    // Delete a driver
+    // Delete a bus
     public static void deleteBus(String busID, Connection conn) throws SQLException {
         String query = "DELETE bus WHERE busid = '" + busID + "'";
 
