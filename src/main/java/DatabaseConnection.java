@@ -172,7 +172,7 @@ public class DatabaseConnection {
                 System.out.print(rs.getString(1) + ", ");
                 System.out.print(rs.getString(2) + ", ");
                 System.out.print(rs.getString(3) + ", ");
-                System.out.print(rs.getString(4) + "\n");
+                System.out.print(rs.getString(4) + ", ");
                 System.out.print(rs.getString(5) + ", ");
                 System.out.print(rs.getString(6) + ", ");
                 System.out.print(rs.getString(7) + "\n");
@@ -213,7 +213,7 @@ public class DatabaseConnection {
         try (Statement stmt = conn.createStatement()) {
             stmt.executeUpdate(query);
             ResultSet rs = stmt.executeQuery(afterInsertion);
-            System.out.println("SUCCESSFULLY ADDED NEW BUS: \n");
+            System.out.println("AFTER INSERTION: \n");
             while (rs.next()) {
                 System.out.print(rs.getString(1) + ", ");
                 System.out.print(rs.getString(2) + ", ");
@@ -226,19 +226,19 @@ public class DatabaseConnection {
 
     }
 
-    // Add a driver
+    // Delete a driver
     public static void deleteBus(String busID, Connection conn) throws SQLException {
         String query = "DELETE bus WHERE busid = '" + busID + "'";
 
-        String afterInsertion = "SELECT * FROM BUS;";
+        String afterDelete = "SELECT * FROM BUS;";
 
         try (Statement stmt = conn.createStatement()) {
             stmt.executeUpdate(query);
-            ResultSet rs = stmt.executeQuery(afterInsertion);
-            System.out.println("AFTER INSERTION: \n");
+            ResultSet rs = stmt.executeQuery(afterDelete);
+            System.out.println("AFTER DELETION: \n");
             while (rs.next()) {
                 System.out.print(rs.getString(1) + ", ");
-                System.out.print(rs.getString(2) + "\n");
+                System.out.print(rs.getString(2) + ", ");
                 System.out.print(rs.getString(3) + "\n");
             }
             rs.close();
@@ -256,19 +256,17 @@ public class DatabaseConnection {
                 + "''" + stopNum + "', '" + arrTime + "', '" + actualStart + "''" + actualArrival + "', '" + passIn
                 + "', '" + passOut + "') ";
 
+        String afterInsertion = "SELECT * FROM ACTUALTRIPSTOPINFO;";
+
         try (Statement stmt = conn.createStatement()) {
             stmt.executeUpdate(query);
-            ResultSet rs = stmt.executeQuery(query);
+            ResultSet rs = stmt.executeQuery(afterInsertion);
+            System.out.println("AFTER INSERTION: \n");
             while (rs.next()) {
                 System.out.print(rs.getString(1) + ", ");
                 System.out.print(rs.getString(2) + ", ");
                 System.out.print(rs.getString(3) + ", ");
-                System.out.print(rs.getString(4) + ", ");
-                System.out.print(rs.getString(5) + ", ");
-                System.out.print(rs.getString(6) + ", ");
-                System.out.print(rs.getString(7) + "\n");
-                System.out.print(rs.getString(8) + "\n");
-                System.out.print(rs.getString(9) + "\n");
+                System.out.print(rs.getString(4) + "\n");
             }
             rs.close();
         } catch (SQLException e) {

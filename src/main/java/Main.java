@@ -212,7 +212,6 @@ public class Main {
             String passIn = myScanner.next();
             System.out.println("PLEASE ENTER NUMBER OF PASSENGERS OUT: ");
             String passOut = myScanner.next();
-
             try {
                 DatabaseConnection.recordTripData(tripNum, date, startTime, stopNum, arrivTime, actualStart,
                         actualArrival, passIn, passOut, transitConnection);
