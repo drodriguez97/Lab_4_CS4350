@@ -17,15 +17,16 @@ public class DatabaseConnection {
                 + "'" + start + "'" + " AND T.destinationname = " + "'" + dest + "';";
 
         try (Statement stmt = conn.createStatement()) {
+            stmt.executeUpdate(query);
+
             ResultSet rs = stmt.executeQuery(query);
+            ResultSetMetaData rsmd = rs.getMetaData();
+
+            int colCount = rsmd.getColumnCount();
+
             while (rs.next()) {
-                System.out.print(rs.getString(1) + ", ");
-                System.out.print(rs.getString(2) + ", ");
-                System.out.print(rs.getString(3) + ", ");
-                System.out.print(rs.getString(4) + ", ");
-                System.out.print(rs.getString(5) + ", ");
-                System.out.print(rs.getString(6) + ", ");
-                System.out.print(rs.getString(7) + "\n");
+                for (int i = 1; i <= colCount; i++)
+                    System.out.print(rs.getString(i) + "\t\t");
             }
             rs.close();
         } catch (SQLException e) {
@@ -44,20 +45,22 @@ public class DatabaseConnection {
 
         try (Statement stmt = conn.createStatement()) {
             stmt.executeUpdate(query);
+
             ResultSet rs = stmt.executeQuery(afterDelete);
-            System.out.println("THE TABLE AFTER DELETION: ");
+            ResultSetMetaData rsmd = rs.getMetaData();
+
+            int colCount = rsmd.getColumnCount();
+
+            System.out.println("AFTER DELETE: \n");
             while (rs.next()) {
-                System.out.print(rs.getString(1) + ", ");
-                System.out.print(rs.getString(2) + ", ");
-                System.out.print(rs.getString(3) + ", ");
-                System.out.print(rs.getString(4) + ", ");
-                System.out.print(rs.getString(5) + ", ");
-                System.out.print(rs.getString(6) + "\n");
+                for (int i = 1; i <= colCount; i++)
+                    System.out.print(rs.getString(i) + "\t\t");
             }
             rs.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
     }
 
     public static void addTripOffering(String tripNum, String date, String startTime, String arrivTime,
@@ -69,15 +72,16 @@ public class DatabaseConnection {
 
         try (Statement stmt = conn.createStatement()) {
             stmt.executeUpdate(query);
+
             ResultSet rs = stmt.executeQuery(afterInsert);
-            System.out.println("THE TABLE AFTER INSERTION: ");
+            ResultSetMetaData rsmd = rs.getMetaData();
+
+            int colCount = rsmd.getColumnCount();
+
+            System.out.println("AFTER INSERTION: \n");
             while (rs.next()) {
-                System.out.print(rs.getString(1) + ", ");
-                System.out.print(rs.getString(2) + ", ");
-                System.out.print(rs.getString(3) + ", ");
-                System.out.print(rs.getString(4) + ", ");
-                System.out.print(rs.getString(5) + ", ");
-                System.out.print(rs.getString(6) + "\n");
+                for (int i = 1; i <= colCount; i++)
+                    System.out.print(rs.getString(i) + "\t\t");
             }
             rs.close();
         } catch (SQLException e) {
@@ -97,15 +101,16 @@ public class DatabaseConnection {
 
         try (Statement stmt = conn.createStatement()) {
             stmt.executeUpdate(query);
+
             ResultSet rs = stmt.executeQuery(afterUpdate);
+            ResultSetMetaData rsmd = rs.getMetaData();
+
+            int colCount = rsmd.getColumnCount();
+
             System.out.println("THE TABLE AFTER UPDATE: ");
             while (rs.next()) {
-                System.out.print(rs.getString(1) + ", ");
-                System.out.print(rs.getString(2) + ", ");
-                System.out.print(rs.getString(3) + ", ");
-                System.out.print(rs.getString(4) + ", ");
-                System.out.print(rs.getString(5) + ", ");
-                System.out.print(rs.getString(6) + "\n");
+                for (int i = 1; i <= colCount; i++)
+                    System.out.print(rs.getString(i) + "\t\t");
             }
             rs.close();
         } catch (SQLException e) {
@@ -125,15 +130,16 @@ public class DatabaseConnection {
 
         try (Statement stmt = conn.createStatement()) {
             stmt.executeUpdate(query);
+
             ResultSet rs = stmt.executeQuery(afterUpdate);
+            ResultSetMetaData rsmd = rs.getMetaData();
+
+            int colCount = rsmd.getColumnCount();
+
             System.out.println("THE TABLE AFTER UPDATE: ");
             while (rs.next()) {
-                System.out.print(rs.getString(1) + ", ");
-                System.out.print(rs.getString(2) + ", ");
-                System.out.print(rs.getString(3) + ", ");
-                System.out.print(rs.getString(4) + ", ");
-                System.out.print(rs.getString(5) + ", ");
-                System.out.print(rs.getString(6) + "\n");
+                for (int i = 1; i <= colCount; i++)
+                    System.out.print(rs.getString(i) + "\t\t");
             }
             rs.close();
         } catch (SQLException e) {
@@ -146,13 +152,17 @@ public class DatabaseConnection {
         String query = "SELECT * FROM tripstopinfo WHERE tripnumber = '" + tripNum + "'";
 
         try (Statement stmt = conn.createStatement()) {
+            stmt.executeUpdate(query);
+
             ResultSet rs = stmt.executeQuery(query);
+            ResultSetMetaData rsmd = rs.getMetaData();
+
+            int colCount = rsmd.getColumnCount();
+
             System.out.println("ALL STOPS FOR TRIP NUMBER " + tripNum + ": ");
             while (rs.next()) {
-                System.out.print(rs.getString(1) + ", ");
-                System.out.print(rs.getString(2) + ", ");
-                System.out.print(rs.getString(3) + ", ");
-                System.out.print(rs.getString(4) + "\n");
+                for (int i = 1; i <= colCount; i++)
+                    System.out.print(rs.getString(i) + "\t\t");
             }
             rs.close();
         } catch (SQLException e) {
@@ -166,22 +176,23 @@ public class DatabaseConnection {
                 + name + "' + AND tripdate = '" + date + "' ORDER BY scheduledstartime";
 
         try (Statement stmt = conn.createStatement()) {
+            stmt.executeUpdate(query);
+
             ResultSet rs = stmt.executeQuery(query);
+            ResultSetMetaData rsmd = rs.getMetaData();
+
+            int colCount = rsmd.getColumnCount();
+
             System.out.println("WEEKLY SCHEDULE FOR DRIVER " + name + ": ");
+
             while (rs.next()) {
-                System.out.print(rs.getString(1) + ", ");
-                System.out.print(rs.getString(2) + ", ");
-                System.out.print(rs.getString(3) + ", ");
-                System.out.print(rs.getString(4) + ", ");
-                System.out.print(rs.getString(5) + ", ");
-                System.out.print(rs.getString(6) + ", ");
-                System.out.print(rs.getString(7) + "\n");
+                for (int i = 1; i <= colCount; i++)
+                    System.out.print(rs.getString(i) + "\t\t");
             }
             rs.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
     }
 
     // add a driver
@@ -192,17 +203,21 @@ public class DatabaseConnection {
 
         try (Statement stmt = conn.createStatement()) {
             stmt.executeUpdate(query);
+
             ResultSet rs = stmt.executeQuery(afterInsertion);
+            ResultSetMetaData rsmd = rs.getMetaData();
+
+            int colCount = rsmd.getColumnCount();
+
             System.out.println("AFTER INSERTION: \n");
             while (rs.next()) {
-                System.out.print(rs.getString(1) + ", ");
-                System.out.print(rs.getString(2) + "\n");
+                for (int i = 1; i <= colCount; i++)
+                    System.out.print(rs.getString(i) + "\t\t");
             }
             rs.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
     }
 
     // Add a bus
@@ -213,18 +228,21 @@ public class DatabaseConnection {
 
         try (Statement stmt = conn.createStatement()) {
             stmt.executeUpdate(query);
+
             ResultSet rs = stmt.executeQuery(afterInsertion);
+            ResultSetMetaData rsmd = rs.getMetaData();
+
+            int colCount = rsmd.getColumnCount();
+
             System.out.println("AFTER INSERTION: \n");
             while (rs.next()) {
-                System.out.print(rs.getString(1) + ", ");
-                System.out.print(rs.getString(2) + ", ");
-                System.out.print(rs.getString(3) + "\n");
+                for (int i = 1; i <= colCount; i++)
+                    System.out.print(rs.getString(i) + "\t\t");
             }
             rs.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
     }
 
     // Delete a bus
@@ -235,12 +253,16 @@ public class DatabaseConnection {
 
         try (Statement stmt = conn.createStatement()) {
             stmt.executeUpdate(query);
+
             ResultSet rs = stmt.executeQuery(afterDelete);
-            System.out.println("AFTER DELETION: \n");
+            ResultSetMetaData rsmd = rs.getMetaData();
+
+            int colCount = rsmd.getColumnCount();
+
+            System.out.println("AFTER DELETE: \n");
             while (rs.next()) {
-                System.out.print(rs.getString(1) + ", ");
-                System.out.print(rs.getString(2) + ", ");
-                System.out.print(rs.getString(3) + "\n");
+                for (int i = 1; i <= colCount; i++)
+                    System.out.print(rs.getString(i) + "\t\t");
             }
             rs.close();
         } catch (SQLException e) {
@@ -261,13 +283,16 @@ public class DatabaseConnection {
 
         try (Statement stmt = conn.createStatement()) {
             stmt.executeUpdate(query);
+
             ResultSet rs = stmt.executeQuery(afterInsertion);
+            ResultSetMetaData rsmd = rs.getMetaData();
+
+            int colCount = rsmd.getColumnCount();
+
             System.out.println("AFTER INSERTION: \n");
             while (rs.next()) {
-                System.out.print(rs.getString(1) + ", ");
-                System.out.print(rs.getString(2) + ", ");
-                System.out.print(rs.getString(3) + ", ");
-                System.out.print(rs.getString(4) + "\n");
+                for (int i = 1; i <= colCount; i++)
+                    System.out.print(rs.getString(i) + "\t\t");
             }
             rs.close();
         } catch (SQLException e) {
