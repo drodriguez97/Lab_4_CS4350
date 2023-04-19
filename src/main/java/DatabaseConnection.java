@@ -160,6 +160,7 @@ public class DatabaseConnection {
         }
     }
 
+    // Display the weekly schedule of a given driver and date
     public static void displayDriverSchedule(String name, String date, Connection conn) throws SQLDataException {
         String query = "SELECT tripnumber, tripdate, scheduledstarttime, scheduledarrivaltime FROM DRIVER  WHERE drivername = '"
                 + name + "' + AND tripdate = '" + date + "' ORDER BY scheduledstartime";
@@ -172,6 +173,9 @@ public class DatabaseConnection {
                 System.out.print(rs.getString(2) + ", ");
                 System.out.print(rs.getString(3) + ", ");
                 System.out.print(rs.getString(4) + "\n");
+                System.out.print(rs.getString(5) + ", ");
+                System.out.print(rs.getString(6) + ", ");
+                System.out.print(rs.getString(7) + "\n");
             }
             rs.close();
         } catch (SQLException e) {
@@ -243,6 +247,32 @@ public class DatabaseConnection {
         }
 
     }
-    // Display the weekly schedule of a given driver and date
 
+    public static void recordTripData(String tripNum, String date, String startTime, String stopNum, String arrTime,
+            String actualStart,
+            String actualArrival, String passIn, String passOut, Connection conn) {
+
+        String query = "INSERT INTO actualtripstopinfo VALUES('" + tripNum + "', '" + date + "', '" + startTime
+                + "''" + stopNum + "', '" + arrTime + "', '" + actualStart + "''" + actualArrival + "', '" + passIn
+                + "', '" + passOut + "') ";
+
+        try (Statement stmt = conn.createStatement()) {
+            stmt.executeUpdate(query);
+            ResultSet rs = stmt.executeQuery(query);
+            while (rs.next()) {
+                System.out.print(rs.getString(1) + ", ");
+                System.out.print(rs.getString(2) + ", ");
+                System.out.print(rs.getString(3) + ", ");
+                System.out.print(rs.getString(4) + ", ");
+                System.out.print(rs.getString(5) + ", ");
+                System.out.print(rs.getString(6) + ", ");
+                System.out.print(rs.getString(7) + "\n");
+                System.out.print(rs.getString(8) + "\n");
+                System.out.print(rs.getString(9) + "\n");
+            }
+            rs.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 }

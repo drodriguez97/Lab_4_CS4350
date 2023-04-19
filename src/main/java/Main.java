@@ -183,5 +183,42 @@ public class Main {
                 e.printStackTrace();
             }
         }
+        if (option == 10) {
+            System.out.println("PLEASE ENTER BUS ID YOU WANT DELETED: ");
+            String busID = myScanner.next();
+
+            try {
+                DatabaseConnection.deleteBus(busID, transitConnection);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        if (option == 11) {
+            System.out.println("PLEASE ENTER TRIP #: ");
+            String tripNum = myScanner.next();
+            System.out.println("PLEASE ENTER DATE: ");
+            String date = myScanner.next();
+            System.out.println("PLEASE ENTER SCHEDULED START TIME: ");
+            String startTime = myScanner.next();
+            System.out.println("PLEASE ENTER NUMBER OF STOPS: ");
+            String stopNum = myScanner.next();
+            System.out.println("PLEASE ENTER SCHEDULED ARRIVAL TIME: ");
+            String arrivTime = myScanner.next();
+            System.out.println("PLEASE ENTER ACTUAL START TIME ");
+            String actualStart = myScanner.next() + " " + myScanner.next();
+            System.out.println("PLEASE ENTER ACTUAL ARRIVAL TIME : ");
+            String actualArrival = myScanner.next();
+            System.out.println("PLEASE ENTER NUMBER OF PASSENGERS IN: ");
+            String passIn = myScanner.next();
+            System.out.println("PLEASE ENTER NUMBER OF PASSENGERS OUT: ");
+            String passOut = myScanner.next();
+
+            try {
+                DatabaseConnection.recordTripData(tripNum, date, startTime, stopNum, arrivTime, actualStart,
+                        actualArrival, passIn, passOut, transitConnection);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
     }
 }
