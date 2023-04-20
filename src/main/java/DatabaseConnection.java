@@ -4,7 +4,7 @@ public class DatabaseConnection {
 
     public static Connection getConnection() throws SQLException {
 
-        Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/cs4350lab4", "root", ""); // password
+        Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/cs4350lab4", "root", "mysqllab1234"); // password
                                                                                                              // not
                                                                                                              // included
 
@@ -17,7 +17,6 @@ public class DatabaseConnection {
                 + "'" + start + "'" + " AND T.destinationname = " + "'" + dest + "';";
 
         try (Statement stmt = conn.createStatement()) {
-            stmt.executeUpdate(query);
 
             ResultSet rs = stmt.executeQuery(query);
             ResultSetMetaData rsmd = rs.getMetaData();
@@ -53,6 +52,7 @@ public class DatabaseConnection {
 
             System.out.println("AFTER DELETE: \n");
             while (rs.next()) {
+                System.out.println();
                 for (int i = 1; i <= colCount; i++)
                     System.out.print(rs.getString(i) + "\t\t");
             }
@@ -80,6 +80,7 @@ public class DatabaseConnection {
 
             System.out.println("AFTER INSERTION: \n");
             while (rs.next()) {
+                System.out.println();
                 for (int i = 1; i <= colCount; i++)
                     System.out.print(rs.getString(i) + "\t\t");
             }
@@ -109,6 +110,7 @@ public class DatabaseConnection {
 
             System.out.println("THE TABLE AFTER UPDATE: ");
             while (rs.next()) {
+                System.out.println();
                 for (int i = 1; i <= colCount; i++)
                     System.out.print(rs.getString(i) + "\t\t");
             }
@@ -138,6 +140,7 @@ public class DatabaseConnection {
 
             System.out.println("THE TABLE AFTER UPDATE: ");
             while (rs.next()) {
+                System.out.println();
                 for (int i = 1; i <= colCount; i++)
                     System.out.print(rs.getString(i) + "\t\t");
             }
@@ -152,7 +155,6 @@ public class DatabaseConnection {
         String query = "SELECT * FROM tripstopinfo WHERE tripnumber = '" + tripNum + "'";
 
         try (Statement stmt = conn.createStatement()) {
-            stmt.executeUpdate(query);
 
             ResultSet rs = stmt.executeQuery(query);
             ResultSetMetaData rsmd = rs.getMetaData();
@@ -161,6 +163,7 @@ public class DatabaseConnection {
 
             System.out.println("ALL STOPS FOR TRIP NUMBER " + tripNum + ": ");
             while (rs.next()) {
+                System.out.println();
                 for (int i = 1; i <= colCount; i++)
                     System.out.print(rs.getString(i) + "\t\t");
             }
@@ -171,12 +174,11 @@ public class DatabaseConnection {
     }
 
     // Display the weekly schedule of a given driver and date
-    public static void displayDriverSchedule(String name, String date, Connection conn) throws SQLDataException {
-        String query = "SELECT tripnumber, tripdate, scheduledstarttime, scheduledarrivaltime FROM DRIVER  WHERE drivername = '"
-                + name + "' + AND tripdate = '" + date + "' ORDER BY scheduledstartime";
+    public static void displayDriverSchedule(String name, Connection conn) throws SQLDataException {
+        String query = "SELECT tripnumber, tripdate, scheduledstarttime, scheduledarrivaltime FROM TRIPOFFERING WHERE drivername = '"
+                + name +  "' ORDER BY tripdate";
 
         try (Statement stmt = conn.createStatement()) {
-            stmt.executeUpdate(query);
 
             ResultSet rs = stmt.executeQuery(query);
             ResultSetMetaData rsmd = rs.getMetaData();
@@ -186,6 +188,7 @@ public class DatabaseConnection {
             System.out.println("WEEKLY SCHEDULE FOR DRIVER " + name + ": ");
 
             while (rs.next()) {
+                System.out.println();
                 for (int i = 1; i <= colCount; i++)
                     System.out.print(rs.getString(i) + "\t\t");
             }
@@ -211,6 +214,7 @@ public class DatabaseConnection {
 
             System.out.println("AFTER INSERTION: \n");
             while (rs.next()) {
+                System.out.println();
                 for (int i = 1; i <= colCount; i++)
                     System.out.print(rs.getString(i) + "\t\t");
             }
@@ -236,6 +240,7 @@ public class DatabaseConnection {
 
             System.out.println("AFTER INSERTION: \n");
             while (rs.next()) {
+                System.out.println();
                 for (int i = 1; i <= colCount; i++)
                     System.out.print(rs.getString(i) + "\t\t");
             }
@@ -247,7 +252,7 @@ public class DatabaseConnection {
 
     // Delete a bus
     public static void deleteBus(String busID, Connection conn) throws SQLException {
-        String query = "DELETE bus WHERE busid = '" + busID + "'";
+        String query = "DELETE FROM BUS WHERE busID = " + busID + ";";
 
         String afterDelete = "SELECT * FROM BUS;";
 
@@ -261,6 +266,7 @@ public class DatabaseConnection {
 
             System.out.println("AFTER DELETE: \n");
             while (rs.next()) {
+                System.out.println();
                 for (int i = 1; i <= colCount; i++)
                     System.out.print(rs.getString(i) + "\t\t");
             }
@@ -273,10 +279,10 @@ public class DatabaseConnection {
 
     public static void recordTripData(String tripNum, String date, String startTime, String stopNum, String arrTime,
             String actualStart,
-            String actualArrival, String passIn, String passOut, Connection conn) {
+            String actualArrival, String passIn, String passOut, Connection conn) throws SQLException {
 
         String query = "INSERT INTO actualtripstopinfo VALUES('" + tripNum + "', '" + date + "', '" + startTime
-                + "''" + stopNum + "', '" + arrTime + "', '" + actualStart + "''" + actualArrival + "', '" + passIn
+                + "', '" + stopNum + "', '" + arrTime + "', '" + actualStart + "', '" + actualArrival + "', '" + passIn
                 + "', '" + passOut + "') ";
 
         String afterInsertion = "SELECT * FROM ACTUALTRIPSTOPINFO;";
@@ -291,6 +297,7 @@ public class DatabaseConnection {
 
             System.out.println("AFTER INSERTION: \n");
             while (rs.next()) {
+                System.out.println();
                 for (int i = 1; i <= colCount; i++)
                     System.out.print(rs.getString(i) + "\t\t");
             }

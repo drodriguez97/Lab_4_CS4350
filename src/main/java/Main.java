@@ -136,11 +136,10 @@ public class Main {
         if (option == 7) {
             System.out.println("PLEASE ENTER DRIVER NAME: ");
             String name = myScanner.next() + " " + myScanner.next();
-            System.out.println("PLEASE ENTER DATE: ");
-            String date = myScanner.next();
+
 
             try {
-                DatabaseConnection.displayDriverSchedule(name, date, transitConnection);
+                DatabaseConnection.displayDriverSchedule(name, transitConnection);
             } catch (SQLException e) {
                 e.printStackTrace();
             }
@@ -148,7 +147,7 @@ public class Main {
 
         if (option == 8) {
             System.out.println("PLEASE ENTER NEW DRIVER'S NAME: ");
-            String name = myScanner.next();
+            String name = myScanner.next() + " " + myScanner.next();
             System.out.println("PLEASE ENTER NEW DRIVER'S PHONE NUMBER: ");
             String phone = myScanner.next();
 
@@ -182,16 +181,7 @@ public class Main {
                 e.printStackTrace();
             }
         }
-        if (option == 10) {
-            System.out.println("PLEASE ENTER BUS ID YOU WANT DELETED: ");
-            String busID = myScanner.next();
 
-            try {
-                DatabaseConnection.deleteBus(busID, transitConnection);
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        }
         if (option == 11) {
             System.out.println("PLEASE ENTER TRIP #: ");
             String tripNum = myScanner.next();
@@ -199,12 +189,12 @@ public class Main {
             String date = myScanner.next();
             System.out.println("PLEASE ENTER SCHEDULED START TIME: ");
             String startTime = myScanner.next();
-            System.out.println("PLEASE ENTER NUMBER OF STOPS: ");
+            System.out.println("PLEASE ENTER THE STOP NUMBER: ");
             String stopNum = myScanner.next();
             System.out.println("PLEASE ENTER SCHEDULED ARRIVAL TIME: ");
             String arrivTime = myScanner.next();
-            System.out.println("PLEASE ENTER ACTUAL START TIME ");
-            String actualStart = myScanner.next() + " " + myScanner.next();
+            System.out.println("PLEASE ENTER ACTUAL START TIME: ");
+            String actualStart = myScanner.next();
             System.out.println("PLEASE ENTER ACTUAL ARRIVAL TIME : ");
             String actualArrival = myScanner.next();
             System.out.println("PLEASE ENTER NUMBER OF PASSENGERS IN: ");
